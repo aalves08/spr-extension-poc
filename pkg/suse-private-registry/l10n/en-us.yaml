@@ -1,0 +1,564 @@
+spr:
+  product:
+    label: SUSE Private Registry
+
+  nav:
+    registries: SPR Registries
+    overview: Registry Overview
+    projects: Projects
+    repositories: Repositories
+    settings: Settings
+
+  tabs:
+    imageSecurity: Image security
+
+  portal:
+    open: Open in SPR portal
+
+  proxyBanner:
+    message: "{count, plural, =1 {Rancher must allow requests to this SUSE Private Registry host before data can be loaded:} other {Rancher must allow requests to these SUSE Private Registry hosts before data can be loaded:}}"
+    askAdmin: Ask a Rancher administrator to allow these hosts (Proxy endpoints).
+    allow: Allow
+    allowing: Allowing
+    allowed: Allowed
+    allowFailed: Could not update the Rancher proxy allow-list
+
+  empty:
+    title: No SUSE Private Registry connected
+    description: Connect a SUSE Private Registry instance to see its health, projects, artifacts and vulnerabilities in Rancher.
+    cta: Add a connection
+    install: "No SUSE Private Registry yet? Install it from Apps > Charts (suse-private-registry), then connect it here."
+    noPermission:
+      title: Insufficient permissions
+      description: Your account cannot read the connection Secrets in the cattle-global-data namespace. Ask a Rancher administrator for access.
+
+  requirements:
+    title: Before you install SUSE Private Registry
+    intro: The registry must be installed and reachable before you connect it. SUSE recommends this as a starting point for production.
+    where: "Where: install it on a dedicated downstream cluster, not on the Rancher management (local) cluster."
+    cluster: "Cluster: Kubernetes 1.33 to 1.35 with at least 3 worker nodes of 4 vCPU and 16 GiB RAM each. Use 8 vCPU and 32 GiB if you scan or push a lot of images."
+    storage: "Storage: a default StorageClass, or one set in the chart values. The chart default sizes (5 GiB for images) are only for trying it out. Start with 500 GiB to 1 TiB for images and 20 GiB each for the database and Valkey."
+    network: "Network: an ingress controller, a DNS name pointing to it and a TLS certificate Rancher trusts. The chart only creates the Ingress rule and uses a placeholder hostname by default, so set your own hostname and external URL."
+    link: Read the full requirements
+
+  registrySelector:
+    label: Registry
+
+  state:
+    checking: Checking
+    connected: Connected
+    authFailed: Auth failed
+    forbidden: Forbidden
+    unreachable: Unreachable
+    tls: TLS error
+    proxyNotAllowed: Not allowed by proxy
+    notFound: Not found
+    unknown: Unknown
+
+  errors:
+    unauthorized: The credentials were rejected
+    forbidden: The credentials are valid but do not have access
+    notFound: Not found (check the URL)
+    proxyNotAllowed: Rancher is not allowed to proxy requests to this host
+    tls: "TLS error: Rancher does not trust the certificate of this host"
+    unreachable: The host could not be reached from Rancher
+    unknown: Unexpected error
+
+  severity:
+    critical: Critical
+    high: High
+    medium: Medium
+    low: Low
+    unknown: Unknown
+    none: No vulnerabilities
+    total: "{count, plural, =1 {vulnerability} other {vulnerabilities}}"
+
+  scan:
+    notScanned: Not scanned
+    status: Scan
+    forbidden: The connection's account isn't allowed to do this. Check its permissions in the project.
+    scanFailed: "{count, plural, =1 {Could not start the vulnerability scan} other {Could not start # vulnerability scans}}"
+    sbomFailed: "{count, plural, =1 {Could not start SBOM generation} other {Could not start SBOM generation for # artifacts}}"
+    stopFailed: "{count, plural, =1 {Could not stop the scan} other {Could not stop # scans}}"
+    actions:
+      menu: Scan actions
+      scan: Scan vulnerabilities
+      rescan: Scan again
+      stopScan: Stop scan
+      sbom: Generate SBOM
+      regenerateSbom: Generate SBOM again
+      stopSbom: Stop SBOM generation
+      scanSelected: Scan selected
+      sbomSelected: Generate SBOM for selected
+      starting: Starting
+      started: Started
+      stopping: Stopping
+    statuses:
+      pending: Pending
+      running: Running
+      scheduled: Scheduled
+      success: Success
+      error: Error
+      stopped: Stopped
+
+  support:
+    supported: Supported
+    maintenance: Maintenance
+    eol: End of life
+    unknown: Unknown
+
+  unavailable:
+    message: Not available with these credentials
+    error: Could not load this data
+
+  connectionForm:
+    titleAdd: Add SUSE Private Registry connection
+    titleEdit: Edit SUSE Private Registry connection
+    name: Name
+    url: URL
+    urlPlaceholder: https://registry.example.com
+    username: Username
+    usernameTooltip: A read-only user or robot account is enough for browsing. To run vulnerability scans and generate SBOMs, the account also needs permission to scan in those projects. Robot account names look like robot$name.
+    password: Password or secret
+    passwordEdit: Password or secret (leave empty to keep the current one)
+    linked: Linked installation (optional)
+    linkedTooltip: Link to the Helm installation in a Rancher cluster to show pod and volume health. Run "Detect SPR installations" on the Settings page to fill this list.
+    linkedNone: None
+    hostNotAllowed: "Rancher is not allowed to proxy requests to {host} yet."
+    allowHost: Allow host
+    addToAllowList: Add the host to the Rancher proxy allow-list when saving
+    testNeedsAllow: Allow the host first, Rancher can only reach allowed hosts
+    created: "Connection {name} created"
+    updated: "Connection {name} updated"
+    errors:
+      https: The URL must use https
+      url: Enter a valid URL
+      unsignable: Rancher cannot send this username and password to the registry once they are saved, because of a known Rancher encoding issue. Test connection may still pass. Use a robot account, or a different password.
+    test:
+      action: Test connection
+      waiting: Testing
+      ok: Connected
+      failed: Failed
+      success: "{version, select, unknown {Connected to SUSE Private Registry as {user}} other {Connected to SUSE Private Registry {version} as {user}}}"
+      successRobot: "{version, select, unknown {Connected to SUSE Private Registry with a robot account} other {Connected to SUSE Private Registry {version} with a robot account}}"
+    help:
+      tls: Rancher must trust the TLS certificate of the registry (public CA, or the private CA added to Rancher). Requests are made by the Rancher server, not by your browser.
+      credentials: Use a read-only user or a robot account with read access to the projects you want to see. Only projects visible to this account are shown. To run vulnerability scans and generate SBOMs from here, the account also needs scan permission in those projects; without it the scan buttons are hidden.
+      visibility: Credentials are stored in a Secret in the cattle-global-data namespace. Rancher administrators can read them.
+
+  removeConnection:
+    title: Remove connection
+    message: "Remove the connection {name}? The registry itself is not changed."
+    disallow: "Also remove {host} from the Rancher proxy allow-list"
+
+  settings:
+    title: Settings
+    connections: Connections
+    add: Add connection
+    test: Test
+    edit: Edit
+    delete: Delete
+    noRows: No connections yet
+    readOnly: You can view connections but not add or change them.
+    proxyAllowed: Allowed by the Rancher proxy
+    proxyMissing: Not allowed by the Rancher proxy yet
+    headers:
+      name: Name
+      url: URL
+      username: Username
+      proxy: Proxy allowed
+      status: Status
+      linked: Linked installation
+      age: Age
+    help:
+      title: Before you connect
+      proxy: Rancher only proxies requests to allowed hosts. The extension keeps its hosts in the Proxy endpoint named suse-private-registry.
+
+  discovery:
+    title: Detected installations
+    action: Detect SPR installations
+    progress: "Searching clusters ({done}/{total})"
+    connect: Connect
+    connected: Connected
+    none: No SUSE Private Registry installations found in the clusters you can access
+    failed: "Could not search these clusters: {clusters}"
+    headers:
+      cluster: Cluster
+      namespace: Namespace
+      release: Release
+      version: Chart version
+      url: External URL
+
+  registries:
+    title: Registries
+    approx: (approx.)
+    approxTooltip: Estimated from the component versions reported by the registry. Link the connection to its Helm installation for the exact version.
+    headers:
+      state: State
+      name: Name
+      url: URL
+      sprVersion: SPR version
+      support: Support
+      projects: Projects
+      repositories: Repositories
+      storage: Storage used
+      critical: Critical CVEs
+      linked: Linked installation
+
+  overview:
+    title: Overview
+    sprVersion: "SPR:"
+    authMode: "Auth mode:"
+    readOnly: Read-only mode
+    seconds: "{s}s"
+    health:
+      title: Health
+      stat: Components healthy
+    inventory:
+      projects: Projects
+      projectsDetail: "{private} private · {public} public"
+      repositories: Repositories
+      consumed: Consumed by artifacts
+      disk: "Disk: {used} of {total} used"
+    vulnerabilities:
+      title: Vulnerabilities
+      fixable: "{count} fixable"
+      scanned: Artifacts scanned
+      scannedDetail: "{scanned} of {total}"
+    topArtifacts:
+      title: Most vulnerable artifacts
+      none: No vulnerable artifacts
+    topCves:
+      title: Most severe vulnerabilities
+      none: No CVEs found
+      score: "{score} (v3)"
+    operations:
+      title: Operations
+      lastReplication: Last replication
+      scanner: Default scanner
+      unavailable: Unavailable
+    replication:
+      title: Replication
+      none: No replication executions
+      headers:
+        policy: Policy
+        trigger: Trigger
+        status: Status
+        started: Started
+        duration: Duration
+    gc:
+      title: Garbage collection
+      never: Garbage collection has not run yet
+      schedule: GC schedule
+      noSchedule: Not scheduled
+    scanners:
+      title: Scanners
+      default: Default
+      disabled: Disabled
+      healthy: Healthy
+      unhealthy: Unreachable
+      none: No scanners registered
+      headers:
+        name: Name
+        version: Vendor and version
+        health: Health
+
+  health:
+    linkedSource: "Pods and volumes of the linked installation, combined with the registry's own health checks:"
+    registrySource: Components reported by the registry's health check
+    chartVersion: "chart {version}"
+    refresh: Refresh
+    components: Components
+    pvcs: Persistent volume claims
+    noPods: No pods found for this installation
+    noChecks: The registry reported no components
+    noPodTooltip: No pod found in the linked installation, e.g. an external service
+    noCheckTooltip: Not covered by the registry's health check
+    unhealthyBanner: "{count, plural, =1 {1 component needs attention} other {# components need attention}}: {names}"
+    status:
+      healthy: Healthy
+      degraded: Degraded
+      unhealthy: Unhealthy
+    check:
+      passing: Passing
+      failing: Failing
+    headers:
+      status: Status
+      component: Component
+      pods: Pods ready
+      check: Health check
+      restarts: Restarts
+      version: Image
+      started: Started
+      name: Name
+      capacity: Capacity
+      storageClass: Storage class
+      accessModes: Access modes
+
+  projects:
+    title: Projects
+    emptyHint: No projects are visible to the account used by this connection.
+    public: Public
+    private: Private
+    normal: Normal
+    proxyCache: Proxy cache
+    unlimited: unlimited
+    off: "Off"
+    details:
+      title: Details
+      upstream: Upstream registry
+      created: Created
+      proxyOf: "Caches images from {name} ({url})"
+    policies:
+      title: Security policies
+      manage: Manage in portal
+      enabled: Enabled
+      disabled: Disabled
+      autoScan: Scan images on push
+      preventVul: Prevent vulnerable images from running
+      severityAndAbove: "{severity} and above"
+      cosign: Require Cosign signatures
+      autoSbom: Generate SBOM on push
+      retention: Tag retention policy
+    quota:
+      title: Storage quota
+      used: Used
+      noLimit: No storage limit is set for this project.
+      unavailable: Quota information is not available.
+    roles:
+      admins: "{count, plural, =1 {1 admin} other {# admins}}"
+      maintainers: "{count, plural, =1 {1 maintainer} other {# maintainers}}"
+      developers: "{count, plural, =1 {1 developer} other {# developers}}"
+      guests: "{count, plural, =1 {1 guest} other {# guests}}"
+      limitedGuests: "{count, plural, =1 {1 limited guest} other {# limited guests}}"
+      none: No members
+    headers:
+      name: Name
+      access: Access
+      type: Type
+      repositories: Repositories
+      quota: Quota
+      autoScan: Auto-scan
+      preventVul: Prevent vulnerable
+      cosign: Cosign required
+      members: Members
+
+  repositories:
+    title: Repositories
+    none: No repositories in this project
+    noneAll: No repositories in this registry
+    moreTags: "+{count}"
+    vulnerabilitiesTooltip: Vulnerabilities of the most recently pushed artifact
+    headers:
+      name: Name
+      project: Project
+      latest: Latest artifact
+      vulnerabilities: Vulnerabilities (latest)
+      artifacts: Artifacts
+      pulls: Pulls
+      updated: Last modified
+
+  repository:
+    summary:
+      artifacts: Artifacts
+      scanned: Scanned
+      signed: Signed
+      sbom: With SBOM
+      vulnerabilitiesTooltip: Sum over all artifacts in this repository. A CVE found in several artifacts is counted once per artifact.
+
+  artifacts:
+    none: No artifacts in this repository
+    untagged: (untagged)
+    platforms: "{count, plural, =1 {1 platform} other {# platforms}}"
+    neverPulled: Never
+    signed: Signed
+    unsigned: Not signed
+    sbom: SBOM
+    noSbom: No SBOM
+    copyDigest: Copy digest
+    digestCopied: Copied
+    kind:
+      image: Image
+      chart: Helm chart
+      model: AI model
+      other: Other
+    headers:
+      tags: Tags
+      digest: Digest
+      type: Type
+      platform: OS/Arch
+      size: Size
+      vulnerabilities: Vulnerabilities
+      signed: Signed
+      sbom: SBOM
+      pushed: Pushed
+      pulled: Last pulled
+      pull: Pull command
+
+  artifactTabs:
+    vulnerabilities: Vulnerabilities
+    sbom: SBOM
+    accessories: Signatures & accessories
+    runningIn: Running in
+
+  vulnerabilities:
+    allSeverities: All severities
+    severityFilter: Severity
+    fixableOnly: Fixable only
+    noFix: No fix
+    none: No vulnerabilities match the filters
+    noReport: No vulnerability report for this artifact
+    summaryTooltip: Click a severity or the fixable count to filter the table
+    headers:
+      severity: Severity
+      cve: CVE
+      package: Package
+      installed: Installed
+      fixed: Fixed in
+      cvss: CVSS
+      description: Description
+      exposure: Exposure
+
+  sbom:
+    none: No SBOM has been generated for this artifact
+    available: Available
+    notGenerated: Not generated
+    headers:
+      status: Status
+      generated: Generated
+      generator: Generator
+    downloadFailed: Could not download the SBOM
+
+  accessories:
+    none: No signatures or accessories
+    summary: "{signatures} signature(s), {total} accessories in total"
+    types:
+      signature_cosign: Cosign signature
+      signature_notation: Notation signature
+      harbor_sbom: SBOM
+    headers:
+      type: Type
+      digest: Digest
+      size: Size
+      created: Created
+
+  runningIn:
+    description: Search all ready clusters you can access for pods running this artifact. This can take a while on large fleets.
+    search: Search clusters
+    searchAgain: Search again
+    progress: "Searching clusters ({done}/{total})"
+    none: Not running in any cluster you can access
+    failed: "Could not search these clusters: {clusters}"
+    headers:
+      cluster: Cluster
+      namespace: Namespace
+      workload: Workload
+      kind: Kind
+      container: Container
+      repository: Repository
+      pods: Pods
+
+  imageSecurity:
+    headers:
+      container: Container
+      image: Image
+      source: Source
+      scan: Scan status
+      vulnerabilities: Vulnerabilities
+      signed: Signed
+      sbom: SBOM
+      link: ""
+    init: init
+    external: External
+    view: View in SPR
+    none: No containers
+    noAccess: You cannot read SUSE Private Registry connections, so image security data is not shown.
+    noConnections: No SUSE Private Registry is connected. Images are shown as external.
+    noPods: Could not read the pods of this workload. Matching uses the image tags from the spec instead of the running digests.
+
+  imageFix:
+    menu: Image fixes
+    container: "Container {container}"
+    before: Current image
+    after: New image
+    choose: Proxy-cache project
+    rollout: This changes the workload's pod template, so Kubernetes rolls out new pods.
+    apply: Update workload
+    applying: Updating
+    success: "Image of container {container} updated"
+    pin:
+      action: Pin to digest
+      title: Pin image to digest
+      description: "Pinning makes the image immutable: the container keeps running {digest} even if the tag is pushed again."
+    switchTag:
+      action: Switch to a less vulnerable tag
+      title: Switch image tag
+      description: "Tags of {repo}, fewest critical and high vulnerabilities first. Pick the one container {container} should run."
+      current: Current
+      better: Fewer findings
+      none: No other scanned image tags in this repository.
+    proxy:
+      action: Pull through SPR
+      title: Pull through SPR
+      description: "Pull this {host} image through an SPR proxy-cache project: SPR caches and scans it, and pulls keep working if the upstream registry rate-limits or goes down."
+
+  deploy:
+    open: Deploy
+    title: Deploy image
+    description: Create a Deployment running this image in a cluster you can access.
+    cluster: Cluster
+    namespace: Namespace
+    name: Name
+    nameInvalid: "Use lower-case letters, numbers and '-' (up to 63 characters, starting and ending with a letter or number)"
+    reference: Image reference
+    referenceTooltip: A digest always runs this exact artifact. A tag follows whatever is pushed to it later.
+    byDigest: "Digest {digest} (immutable)"
+    byTag: "Tag {tag}"
+    replicas: Replicas
+    port: Container port
+    portTooltip: Optional. Add a Service from the Cluster Explorer to expose it.
+    pullSecret: Image pull secret
+    pullSecretTooltip: "Registry secrets in this namespace with credentials for {host}"
+    noPullSecret: None
+    missingSecret: "This project is private and there is no registry secret for {host} in the {namespace} namespace, so pods won't be able to pull the image."
+    createSecret: Create a registry secret
+    publicProject: This project is public, so no image pull secret is needed.
+    image: Image
+    action: Deploy
+    deploying: Deploying
+    successTitle: Deployment created
+    success: "{name} created in namespace {namespace}"
+
+  exposure:
+    action: "Who's exposed? Find running workloads affected by this CVE"
+    actionFor: "Who's exposed to {cve}?"
+    title: "Who's exposed to {cve}?"
+    summary: "{artifacts, plural, =0 {No scanned artifact in this registry has this CVE} =1 {1 artifact in {repositories, plural, =1 {1 repository} other {# repositories}} has this CVE} other {# artifacts in {repositories, plural, =1 {1 repository} other {# repositories}} have this CVE}}"
+    showAll: "Show {count} more"
+    hubFailed: "Could not read Security Hub: {error}"
+    hubFailedKnown: "Could not read Security Hub ({error}). Only this artifact is searched."
+
+  packageSearch:
+    open: Find package
+    title: Who runs a package?
+    description: Searches the SBOMs of this registry's images that are running in the clusters you can access. Matches the package name or its source package, so xz-utils also finds liblzma5.
+    name: Package
+    namePlaceholder: e.g. openssl
+    version: Version
+    versionTooltip: "Optional. Matches the exact version or a prefix: 5.6 matches 5.6.0 and 5.6-1, not 5.60."
+    search: Search
+    progress:
+      clusters: "Listing running images ({done}/{total} clusters)"
+      sboms: "Reading SBOMs ({done}/{total} images)"
+    summary: "{count, plural, =0 {No workload runs {name}.} =1 {1 workload runs {name}.} other {# workloads run {name}.}}"
+    coverage: "Checked {checked} of {total} running images from this registry."
+    showUncovered: "Show the {count, plural, =1 {image} other {# images}} that couldn't be checked"
+    hideUncovered: "Hide the {count, plural, =1 {image} other {# images}} that couldn't be checked"
+    noSbom: No SBOM generated
+    readFailed: Could not read its SBOM
+    external: "{count, plural, =1 {1 running image comes} other {# running images come}} from other registries and can't be checked."
+    noImages: No images from this registry are running in the clusters you can access.
+    none: No running workload contains this package
+    findTooltip: "Find running workloads with {package}"
+    headers:
+      packages: Package

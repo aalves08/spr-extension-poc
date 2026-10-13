@@ -1,0 +1,31 @@
+// Severity and scan-status colours from SUSE Security (rancher/security-ui-exts, styles/_variables.scss).
+// Shell has no severity tokens; reuse these instead of inventing new ones.
+
+// Severity
+$spr-critical: #A30000;
+$spr-high: #E03231;
+$spr-medium: #FD8D0D;
+$spr-low: #FADA38;
+$spr-unknown: #C3C6D5;
+$spr-low-unknown-text: #4A4B52;
+
+// Empty ("zero") segments
+$spr-zero-light: #DDDEE7;
+$spr-zero-dark: #4A4B52;
+
+// Job / scan status
+$spr-status-pending: #C3C6D5;
+$spr-status-scheduled: #0FCFF0;
+$spr-status-running: #3E98D3;
+$spr-status-success: #5D9A5D;
+$spr-status-error: #E03231;
+
+// Background + text for a severity (critical, high, medium, low, unknown)
+@mixin spr-severity-colors {
+  &.critical { background: $spr-critical; color: rgba(255, 255, 255, 0.9); }
+  &.high { background: $spr-high; color: rgba(255, 255, 255, 0.9); }
+  &.medium { background: $spr-medium; color: rgba(255, 255, 255, 0.9); }
+  // Never yellow text: low and unknown get dark text on a light background
+  &.low { background: $spr-low; color: $spr-low-unknown-text; }
+  &.unknown { background: $spr-unknown; color: $spr-low-unknown-text; }
+}
